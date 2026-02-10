@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:matrimony_app/mixins/event_listener.dart';
 import 'package:matrimony_app/services/fcm_service.dart';
 
 import '../../exporter.dart';
@@ -38,9 +39,8 @@ class _NavigationScreenState extends State<NavigationScreen>
     });
   }
 
-  void fetchAll(){
+  void fetchAll() {
     checkVersion();
-
   }
 
   @override
@@ -56,13 +56,17 @@ class _NavigationScreenState extends State<NavigationScreen>
       case AppLifecycleState.detached:
         break;
       case AppLifecycleState.resumed:
+        EventListener.i.sendEvent(Event(eventType: EventType.resumed));
         fetchAll();
         break;
       case AppLifecycleState.inactive:
+        EventListener.i.sendEvent(Event(eventType: EventType.inactive));
         break;
       case AppLifecycleState.hidden:
         break;
       case AppLifecycleState.paused:
+        EventListener.i.sendEvent(Event(eventType: EventType.paused));
+
         break;
     }
   }

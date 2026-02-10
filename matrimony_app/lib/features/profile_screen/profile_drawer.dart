@@ -89,6 +89,8 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                       borderRadius: paddingXL,
                       size: 51.sp,
                       imageUrl: CommonController.i.profileDetails?.photo,
+                      username:
+                          CommonController.i.profileDetails?.fullName ?? "",
                     ),
                   ),
                   gap,

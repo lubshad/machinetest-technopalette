@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.db import transaction
 from .models import UserProfile
 from .serializers import UserProfileSerializer, UserProfileCreateUpdateSerializer
+import phonenumbers
 
 User = get_user_model()
 
@@ -90,6 +91,31 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         if gender not in ['Male', 'Female']:
             return Response(
                 {'detail': 'Gender must be either "Male" or "Female"'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Validate phone number
+        try:
+            parsed_number = phonenumbers.parse(phone_number, None)
+            if not phonenumbers.is_valid_number(parsed_number):
+                return Response(
+                    {'detail': 'Invalid phone number. Please include country code (e.g., +91)'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Check if phone number already exists
+            formatted_number = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.E164)
+            if UserProfile.objects.filter(phone_number=formatted_number).exists():
+                return Response(
+                    {'detail': 'Phone number already registered'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Use normalized number for profile creation
+            phone_number = formatted_number
+        except phonenumbers.NumberParseException:
+            return Response(
+                {'detail': 'Invalid phone number format. Please include country code'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         

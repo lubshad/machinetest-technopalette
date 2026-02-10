@@ -276,11 +276,11 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen>
             Icons.family_restroom,
           ).animate().fadeIn(duration: 400.ms).slideX(begin: -0.1, end: 0),
           gapSmall,
-          if (profile.fatherName == null &&
-              profile.motherName == null &&
-              profile.siblings == null &&
-              profile.familyType == null &&
-              profile.familyStatus == null)
+          if ((profile.fatherName == null || profile.fatherName!.isEmpty) &&
+              (profile.motherName == null || profile.motherName!.isEmpty) &&
+              (profile.siblings == null) &&
+              (profile.familyType == null) &&
+              (profile.familyStatus == null))
             _buildEmptyState("No family information available")
           else
             _buildInfoCard([
@@ -337,12 +337,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen>
             Icons.location_on_outlined,
           ).animate().fadeIn(duration: 400.ms).slideX(begin: -0.1, end: 0),
           gapSmall,
-          if (profile.addressLine1 == null &&
-              profile.addressLine2 == null &&
-              profile.city == null &&
-              profile.state == null &&
-              profile.country == null &&
-              profile.postalCode == null)
+          if ((profile.addressLine1 == null || profile.addressLine1!.isEmpty) &&
+              (profile.addressLine2 == null || profile.addressLine2!.isEmpty) &&
+              (profile.city == null || profile.city!.isEmpty) &&
+              (profile.state == null || profile.state!.isEmpty) &&
+              (profile.country == null || profile.country!.isEmpty) &&
+              (profile.postalCode == null || profile.postalCode!.isEmpty))
             _buildEmptyState("No residential information available")
           else
             _buildInfoCard([
@@ -418,8 +418,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen>
         ],
       ),
       child: Column(
-        children: children.expand((element) => [element, gap]).toList()
-          ..removeLast(),
+        children: children.expand((element) => [element, gap]).toList(),
       ),
     );
   }

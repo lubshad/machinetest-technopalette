@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:matrimony_app/core/error_exception_handler.dart';
 
 import '../../../exporter.dart';
 import '../../../widgets/loading_button.dart';
@@ -146,7 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (!mounted) return;
 
       // Show error message
-      showErrorMessage(e.toString().replaceAll('Exception: ', ''));
+      showErrorMessage(handleError(e));
     } finally {
       if (mounted) {
         setState(() {

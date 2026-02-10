@@ -112,6 +112,26 @@ The `matrimony_backend` directory contains several shell scripts for deployment 
 
 Refer to these scripts for production deployment configurations on a Linux server.
 
+## Test Credentials
+
+Use the following credentials to log in to the application for testing purposes.
+
+**Common Password**: `password123`
+
+### Female Users
+- `emma_1`
+- `olivia_2`
+- `ava_3`
+- `isabella_4`
+- `sophia_5`
+
+### Male Users
+- `liam_6`
+- `noah_7`
+- `oliver_8`
+- `elijah_9`
+- `william_10`
+
 ## License
 
 [Add License Information Here]
