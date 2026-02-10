@@ -1,0 +1,8 @@
+/agora_functions/
+/matrimony_backend/venv/
+/matrimony_backend/media/
+/matrimony_backend/static/
+/matrimony_backend/logs/
+/matrimony_backend/db.sqlite3
+/matrimony_app/build/
+/matrimony_backend/.env

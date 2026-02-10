@@ -1,0 +1,19 @@
+[Unit]
+Description=Celery Worker instance for matrimony_backend
+After=network.target redis.service
+Requires=redis.service
+
+[Service]
+User=matrimony
+Group=www-data
+WorkingDirectory=/home/matrimony/matrimony_backend
+Environment="PATH=/home/matrimony/matrimony_backend/venv/bin"
+EnvironmentFile=/home/matrimony/matrimony_backend/.env
+
+ExecStart=/home/matrimony/matrimony_backend/venv/bin/celery -A matrimony worker --loglevel=info
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

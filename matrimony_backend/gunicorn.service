@@ -1,0 +1,21 @@
+[Unit]
+Description=Gunicorn instance to serve Umatrimony Backend
+After=network.target
+
+[Service]
+User=matrimonyuser
+Group=www-data
+WorkingDirectory=/home/matrimonyuser/matrimony_backend
+Environment="PATH=/home/matrimonyuser/matrimony_backend/venv/bin"
+
+# systemd creates /run/matrimony_backend automatically
+RuntimeDirectory=matrimony_backend
+RuntimeDirectoryMode=0755
+
+ExecStart=/home/matrimonyuser/matrimony_backend/venv/bin/gunicorn --config gunicorn.conf.py matrimony.wsgi:application
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

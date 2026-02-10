@@ -1,0 +1,46 @@
+name: iOS Production Release
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy_ios:
+    name: Deploy to App Store
+    runs-on: macos-latest
+    timeout-minutes: 40
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v3
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run Release Script
+        run: |
+          chmod +x appstorerelease.sh
+          ./appstorerelease.sh

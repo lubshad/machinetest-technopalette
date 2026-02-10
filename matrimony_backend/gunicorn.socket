@@ -1,0 +1,11 @@
+[Unit]
+Description=Umatrimony Backend Gunicorn socket
+
+[Socket]
+ListenStream=/run/matrimony_backend/gunicorn.sock
+SocketUser=matrimonyuser
+SocketGroup=www-data
+SocketMode=0660
+
+[Install]
+WantedBy=sockets.target

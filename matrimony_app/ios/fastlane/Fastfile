@@ -1,0 +1,85 @@
+default_platform(:ios)
+
+platform :ios do
+
+  # Load API Key JSON once
+  before_all do
+    app_store_connect_api_key(
+      key_id: "552KAC6Z35",
+      issuer_id: "82d0b332-5dcf-4bb9-8078-bb9db5461535",
+      key_filepath: "fastlane/APPSTORE_CONNECT_API_552KAC6Z35.p8",
+      in_house: false
+    )
+  end
+
+  # ----------------------------
+  # Lane: SIGN existing build
+  # ----------------------------
+  desc "Build iOS archive and generate IPA"
+  lane :sign_ipa do
+    gym(
+      scheme: "Runner",
+      export_method: "app-store",
+      output_directory: "../build/ios/ipa",
+      output_name: "omor.ipa",
+      clean: false,
+      workspace: "Runner.xcworkspace",
+      configuration: "Release",
+      include_bitcode: false,
+      skip_codesigning: false
+    )
+    UI.success("🔐 IPA signed successfully!")
+  end
+
+  # ----------------------------
+  # Lane: Upload signed IPA to TestFlight
+  # ----------------------------
+  desc "Upload signed IPA to TestFlight"
+  lane :upload_testflight do
+    upload_to_testflight(
+      ipa: "../build/ios/ipa/omor.ipa",
+      skip_waiting_for_build_processing: false,
+      distribute_external: false,
+      changelog: "Bug Fixing And Improvements"
+    )
+    UI.success("🚀 IPA uploaded to TestFlight!")
+  end
+
+  # ----------------------------
+  # Lane: Submit latest build for App Store review
+  # ----------------------------
+  desc "Submit latest TestFlight build to App Store review"
+  lane :submit_for_review do
+    deliver(
+      submit_for_review: true,
+      automatic_release: true,
+      force: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+      skip_binary_upload: true,
+      precheck_include_in_app_purchases: false
+    )
+    UI.success("📤 Build submitted for App Store review!")
+  end
+
+  # ----------------------------
+  # Lane: Sign + Upload
+  # ----------------------------
+  desc "Sign existing build and upload to TestFlight"
+  lane :sign_and_upload do
+    sign_ipa
+    upload_testflight
+  end
+
+  # ----------------------------
+  # Lane: Full Release (sign + upload + review)
+  # ----------------------------
+  desc "Sign IPA → Upload to TestFlight → Submit for review"
+  lane :full_release do
+    sign_ipa
+    upload_testflight
+    submit_for_review
+    UI.success("🎉 Full release flow completed!")
+  end
+
+end

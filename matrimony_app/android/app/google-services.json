@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "427826756664",
+    "project_id": "build-e2f49",
+    "storage_bucket": "build-e2f49.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427826756664:android:70798d658395cb70843acd",
+        "android_client_info": {
+          "package_name": "com.machintetest.matrimony_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427826756664-a1u5aliea95tnh4vnrm1jgh647nak9fd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3-VCg7NHOYmR9yt2FBsxtXkYQdeyXNsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427826756664-a1u5aliea95tnh4vnrm1jgh647nak9fd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427826756664:android:a7b69450f1433a21843acd",
+        "android_client_info": {
+          "package_name": "com.nutricare.nutricare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427826756664-a1u5aliea95tnh4vnrm1jgh647nak9fd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3-VCg7NHOYmR9yt2FBsxtXkYQdeyXNsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427826756664-a1u5aliea95tnh4vnrm1jgh647nak9fd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
